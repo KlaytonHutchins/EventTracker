@@ -1,5 +1,6 @@
 package com.skilldistillery.finance.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +25,16 @@ public class CreditCard {
 	private String institutionName;
 	
 	private Double balance;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_portfolio_id")
+	private UserPortfolio userPortfolio;
+	
+	@OneToMany(mappedBy = "creditCard")
+	private List<Payment> payments;
+	
+	@OneToMany(mappedBy = "creditCard")
+	private List<Purchase> purchases;
 
 	public CreditCard() {}
 
@@ -46,6 +60,30 @@ public class CreditCard {
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+
+	public UserPortfolio getUserPortfolio() {
+		return userPortfolio;
+	}
+
+	public void setUserPortfolio(UserPortfolio userPortfolio) {
+		this.userPortfolio = userPortfolio;
+	}
+
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
+	}
+
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	@Override

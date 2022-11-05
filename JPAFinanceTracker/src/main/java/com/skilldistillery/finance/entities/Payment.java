@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Payment {
@@ -20,6 +22,10 @@ public class Payment {
 	private String description;
 	
 	private LocalDateTime timestamp;
+	
+	@ManyToOne
+	@JoinColumn(name = "credit_card_id")
+	private CreditCard creditCard;
 
 	public Payment() {}
 

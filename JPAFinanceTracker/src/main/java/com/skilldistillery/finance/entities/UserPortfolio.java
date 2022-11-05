@@ -1,5 +1,6 @@
 package com.skilldistillery.finance.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,8 +29,12 @@ public class UserPortfolio {
 	
 	private String password;
 	
-	private Double balance;
-
+	@OneToMany(mappedBy = "userPortfolio")
+	private List<CreditCard> creditCards;
+	
+	@OneToMany(mappedBy = "userPortfolio")
+	private List<BankAccount> bankAccount;
+	
 	public UserPortfolio() {}
 
 	public int getId() {
@@ -71,12 +77,20 @@ public class UserPortfolio {
 		this.password = password;
 	}
 
-	public Double getBalance() {
-		return balance;
+	public List<CreditCard> getCreditCards() {
+		return creditCards;
 	}
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
+	public void setCreditCards(List<CreditCard> creditCards) {
+		this.creditCards = creditCards;
+	}
+
+	public List<BankAccount> getBankAccount() {
+		return bankAccount;
+	}
+
+	public void setBankAccount(List<BankAccount> bankAccount) {
+		this.bankAccount = bankAccount;
 	}
 
 	@Override
@@ -99,7 +113,7 @@ public class UserPortfolio {
 	@Override
 	public String toString() {
 		return "UserPortfolio [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", balance=" + balance + "]";
+				+ ", password=" + password + "]";
 	}
 	
 }

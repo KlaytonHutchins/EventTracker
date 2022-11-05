@@ -26,7 +26,6 @@ CREATE TABLE IF NOT EXISTS `user_portfolio` (
   `last_name` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `password` VARCHAR(45) NULL,
-  `balance` DECIMAL(12,2) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -170,7 +169,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `financedb`;
-INSERT INTO `user_portfolio` (`id`, `first_name`, `last_name`, `email`, `password`, `balance`) VALUES (1, 'Jack', 'Ramirez', 'jack@gmail.com', 'iLoveFish', NULL);
+INSERT INTO `user_portfolio` (`id`, `first_name`, `last_name`, `email`, `password`) VALUES (1, 'Jack', 'Ramirez', 'jack@gmail.com', 'iLoveFish');
 
 COMMIT;
 

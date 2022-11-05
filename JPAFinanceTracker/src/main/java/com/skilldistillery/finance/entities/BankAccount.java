@@ -1,5 +1,6 @@
 package com.skilldistillery.finance.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +25,16 @@ public class BankAccount {
 	private String institutionName;
 	
 	private Double balance;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_portfolio_id")
+	private UserPortfolio userPortfolio;
+	
+	@OneToMany(mappedBy = "bankAccount")
+	private List<Withdrawal> withdrawals;
+	
+	@OneToMany(mappedBy = "bankAccount")
+	private List<Deposit> deposits;
 
 	public BankAccount() {}
 
@@ -46,6 +60,30 @@ public class BankAccount {
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+
+	public UserPortfolio getUserPortfolio() {
+		return userPortfolio;
+	}
+
+	public void setUserPortfolio(UserPortfolio userPortfolio) {
+		this.userPortfolio = userPortfolio;
+	}
+
+	public List<Withdrawal> getWithdrawals() {
+		return withdrawals;
+	}
+
+	public void setWithdrawals(List<Withdrawal> withdrawals) {
+		this.withdrawals = withdrawals;
+	}
+
+	public List<Deposit> getDeposits() {
+		return deposits;
+	}
+
+	public void setDeposits(List<Deposit> deposits) {
+		this.deposits = deposits;
 	}
 
 	@Override
