@@ -32,7 +32,7 @@ public class UserPortfolioServiceImpl implements UserPortfolioService {
 
 	@Override
 	public UserPortfolio createPortfolio(UserPortfolio portfolio) {
-		portfolioRepo.saveAndFlush(portfolio);
+		portfolio = portfolioRepo.saveAndFlush(portfolio);
 		return portfolio;
 	}
 
