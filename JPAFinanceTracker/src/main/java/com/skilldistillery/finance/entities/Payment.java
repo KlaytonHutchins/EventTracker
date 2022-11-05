@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Payment {
 	
@@ -23,6 +25,7 @@ public class Payment {
 	
 	private LocalDateTime timestamp;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "credit_card_id")
 	private CreditCard creditCard;

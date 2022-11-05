@@ -32,7 +32,8 @@ public class CreditCardController {
 	
 	@GetMapping("creditCards/{id}")
 	public CreditCard showCreditCard(@PathVariable Integer id) {
-		return creditCardSvc.showCreditCard(id);
+		CreditCard creditCard = creditCardSvc.showCreditCard(id);
+		return creditCard;
 	}
 	
 	@PostMapping("creditCards")

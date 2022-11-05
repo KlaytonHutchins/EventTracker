@@ -44,7 +44,14 @@ class BankAccountTest {
 	void test_basic_mapping() {
 		assertNotNull(bankAcct);
 		assertNotNull(bankAcct.getInstitutionName());
-		assertEquals("", bankAcct.getInstitutionName());
+		assertEquals("Wells Fargo", bankAcct.getInstitutionName());
 	}
-
+	
+	@Test
+	void test_balance_formula() {
+		assertNotNull(bankAcct);
+		assertNotNull(bankAcct.getBalance());
+		assertEquals(69.00, bankAcct.getBalance());
+	}
+	
 }

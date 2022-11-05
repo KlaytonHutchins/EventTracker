@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "bank_account")
 public class BankAccount {
@@ -24,8 +28,10 @@ public class BankAccount {
 	@Column(name = "institution_name")
 	private String institutionName;
 	
+	@Formula("(SELECT (SELECT SUM(dep.amount) FROM Deposit dep WHERE dep.account_id = id) - (SELECT SUM(withd.amount) FROM Withdrawal withd WHERE withd.account_id = id))")
 	private Double balance;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_portfolio_id")
 	private UserPortfolio userPortfolio;
