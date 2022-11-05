@@ -7,19 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.finance.entities.Account;
-import com.skilldistillery.finance.services.AccountService;
+import com.skilldistillery.finance.entities.UserPortfolio;
+import com.skilldistillery.finance.services.UserPortfolioService;
 
 @RestController
 @RequestMapping("api")
-public class AccountController {
+public class UserPortfolioController {
 	
 	@Autowired
-	private AccountService accountSvc;
+	private UserPortfolioService portfolioSvc;
 	
-	@GetMapping("accounts")
-	public List<Account> listAccounts() {
-		return accountSvc.listAllAccounts();
+	@GetMapping("portfolios")
+	public List<UserPortfolio> listAccounts() {
+		return portfolioSvc.listAllPortfolios();
 	}
 	
 }

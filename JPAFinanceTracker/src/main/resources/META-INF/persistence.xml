@@ -6,7 +6,13 @@
 	
 	<!-- entities -->
 	
-	<class>com.skilldistillery.finance.entities.Account</class>
+	<class>com.skilldistillery.finance.entities.BankAccount</class>
+	<class>com.skilldistillery.finance.entities.CreditCard</class>
+	<class>com.skilldistillery.finance.entities.Deposit</class>
+	<class>com.skilldistillery.finance.entities.Payment</class>
+	<class>com.skilldistillery.finance.entities.Purchase</class>
+	<class>com.skilldistillery.finance.entities.UserPortfolio</class>
+	<class>com.skilldistillery.finance.entities.Withdrawal</class>
 	
 	<!-- end entities -->
 	
