@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Account {
+@Table(name = "credit_card")
+public class CreditCard {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +20,9 @@ public class Account {
 	@Column(name = "institution_name")
 	private String institutionName;
 	
-	public Account() {}
+	private Double balance;
+
+	public CreditCard() {}
 
 	public int getId() {
 		return id;
@@ -36,6 +40,14 @@ public class Account {
 		this.institutionName = institutionName;
 	}
 
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -49,13 +61,13 @@ public class Account {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Account other = (Account) obj;
+		CreditCard other = (CreditCard) obj;
 		return id == other.id;
 	}
 
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", institutionName=" + institutionName + "]";
+		return "CreditCard [id=" + id + ", institutionName=" + institutionName + ", balance=" + balance + "]";
 	}
 	
 }
