@@ -10,6 +10,7 @@ public interface UserPortfolioService {
 	UserPortfolio showPortfolio(int portfolioId);
 	UserPortfolio createPortfolio(UserPortfolio portfolio);
 	UserPortfolio updatePortfolio(int portfolioId, UserPortfolio portfolio);
+	UserPortfolio updatePortfolioPassword(int portfolioId, String password);
 	boolean deletePortfolio(int portfolioId);
 	
 }
