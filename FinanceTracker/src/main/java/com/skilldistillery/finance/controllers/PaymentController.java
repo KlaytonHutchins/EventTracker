@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skilldistillery.finance.entities.BankAccount;
 import com.skilldistillery.finance.entities.CreditCard;
 import com.skilldistillery.finance.entities.Payment;
+import com.skilldistillery.finance.entities.Withdrawal;
 import com.skilldistillery.finance.services.PaymentService;
 
 @RestController
@@ -33,8 +34,12 @@ public class PaymentController {
 	}
 	
 	@GetMapping("creditCards/{ccid}/payments/{payId}")
-	public Payment showPayment(@PathVariable Integer ccid, @PathVariable Integer payId) {
-		return paymentSvc.showPayment(payId, ccid);
+	public Payment showPayment(@PathVariable Integer ccid, @PathVariable Integer payId, HttpServletResponse resp) {
+		Payment payment = paymentSvc.showPayment(payId, ccid);
+		if (payment == null) {
+			resp.setStatus(404);
+		}
+		return payment;
 	}
 	
 	@PostMapping("creditCards/{ccid}/payments")

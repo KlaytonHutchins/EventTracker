@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.finance.entities.BankAccount;
 import com.skilldistillery.finance.entities.Deposit;
+import com.skilldistillery.finance.entities.Withdrawal;
 import com.skilldistillery.finance.services.DepositService;
 
 @RestController
@@ -32,8 +33,12 @@ public class DepositController {
 	}
 	
 	@GetMapping("bankAccounts/{bid}/deposits/{did}")
-	public Deposit showDeposit(@PathVariable Integer bid, @PathVariable Integer did) {
-		return depositSvc.showDeposit(did, bid);
+	public Deposit showDeposit(@PathVariable Integer bid, @PathVariable Integer did, HttpServletResponse resp) {
+		Deposit deposit = depositSvc.showDeposit(did, bid);
+		if (deposit == null) {
+			resp.setStatus(404);
+		}
+		return deposit;
 	}
 	
 	@PostMapping("bankAccounts/{bid}/deposits")

@@ -42,6 +42,7 @@ public class WithdrawalServiceImpl implements WithdrawalService {
 		if (withdrawal.getDescription() != null) {
 			dbWithdrawal.setDescription(withdrawal.getDescription());
 		}
+		withdrawalRepo.saveAndFlush(dbWithdrawal);
 		return dbWithdrawal;
 	}
 

@@ -42,6 +42,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		if (purchase.getDescription() != null) {
 			dbPurchase.setDescription(purchase.getDescription());
 		}
+		purchaseRepo.saveAndFlush(dbPurchase);
 		return dbPurchase;
 	}
 

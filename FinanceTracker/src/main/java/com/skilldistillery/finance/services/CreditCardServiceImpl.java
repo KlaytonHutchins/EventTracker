@@ -45,6 +45,7 @@ public class CreditCardServiceImpl implements CreditCardService {
 		if (creditCard.getCreditLimit() != 0) {
 			dbCard.setCreditLimit(creditCard.getCreditLimit());
 		}
+		creditCardRepo.saveAndFlush(dbCard);
 		return dbCard;
 	}
 

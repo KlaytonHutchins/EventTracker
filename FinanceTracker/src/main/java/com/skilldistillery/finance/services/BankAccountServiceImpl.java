@@ -43,6 +43,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 		if (bankAccount.getInstitutionName() != null) {
 			dbBank.setInstitutionName(bankAccount.getInstitutionName());
 		}
+		bankAccountRepo.saveAndFlush(dbBank);
 		return dbBank;
 	}
 

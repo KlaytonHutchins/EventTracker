@@ -32,8 +32,12 @@ public class WithdrawalController {
 	}
 	
 	@GetMapping("bankAccounts/{bid}/withdrawals/{wid}")
-	public Withdrawal showWithdrawal(@PathVariable Integer bid, @PathVariable Integer wid) {
-		return withdrawalSvc.showWithdrawal(wid, bid);
+	public Withdrawal showWithdrawal(@PathVariable Integer bid, @PathVariable Integer wid, HttpServletResponse resp) {
+		Withdrawal withdrawal = withdrawalSvc.showWithdrawal(wid, bid);
+		if (withdrawal == null) {
+			resp.setStatus(404);
+		}
+		return withdrawal;
 	}
 	
 	@PostMapping("bankAccounts/{bid}/withdrawals")

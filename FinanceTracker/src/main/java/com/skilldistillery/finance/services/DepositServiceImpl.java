@@ -46,6 +46,7 @@ public class DepositServiceImpl implements DepositService {
 		if (deposit.getDescription() != null) {
 			dbDeposit.setDescription(deposit.getDescription());
 		}
+		depositRepo.saveAndFlush(dbDeposit);
 		return dbDeposit;
 	}
 

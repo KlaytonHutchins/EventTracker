@@ -32,8 +32,12 @@ public class PurchaseController {
 	}
 	
 	@GetMapping("creditCards/{ccid}/purchases/{purId}")
-	public Purchase showPurchase(@PathVariable Integer ccid, @PathVariable Integer purId) {
-		return purchaseSvc.showPurchase(purId, ccid);
+	public Purchase showPurchase(@PathVariable Integer ccid, @PathVariable Integer purId, HttpServletResponse resp) {
+		Purchase purchase = purchaseSvc.showPurchase(purId, ccid);
+		if (purchase == null) {
+			resp.setStatus(404);
+		}
+		return purchase;
 	}
 	
 	@PostMapping("creditCards/{ccid}/purchases")
