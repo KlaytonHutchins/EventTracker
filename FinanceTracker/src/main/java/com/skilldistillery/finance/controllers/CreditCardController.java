@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.finance.entities.CreditCard;
 import com.skilldistillery.finance.entities.UserPortfolio;
+import com.skilldistillery.finance.entities.Withdrawal;
 import com.skilldistillery.finance.services.CreditCardService;
 
 @RestController
@@ -32,8 +33,11 @@ public class CreditCardController {
 	}
 	
 	@GetMapping("creditCards/{id}")
-	public CreditCard showCreditCard(@PathVariable Integer id) {
+	public CreditCard showCreditCard(@PathVariable Integer id, HttpServletResponse resp) {
 		CreditCard creditCard = creditCardSvc.showCreditCard(id);
+		if (creditCard == null) {
+			resp.setStatus(404);
+		}
 		return creditCard;
 	}
 	

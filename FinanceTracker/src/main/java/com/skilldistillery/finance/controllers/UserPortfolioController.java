@@ -31,8 +31,12 @@ public class UserPortfolioController {
 	}
 	
 	@GetMapping("portfolios/{id}")
-	public UserPortfolio showPortfolio(@PathVariable Integer id) {
-		return portfolioSvc.showPortfolio(id);
+	public UserPortfolio showPortfolio(@PathVariable Integer id, HttpServletResponse resp) {
+		UserPortfolio portfolio = portfolioSvc.showPortfolio(id);
+		if (portfolio == null) {
+			resp.setStatus(404);
+		}
+		return portfolio;
 	}
 	
 	@PostMapping("portfolios")

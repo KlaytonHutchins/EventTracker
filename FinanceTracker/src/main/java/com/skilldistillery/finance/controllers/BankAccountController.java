@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.finance.entities.BankAccount;
 import com.skilldistillery.finance.entities.UserPortfolio;
+import com.skilldistillery.finance.entities.Withdrawal;
 import com.skilldistillery.finance.services.BankAccountService;
 
 @RestController
@@ -32,8 +33,12 @@ public class BankAccountController {
 	}
 	
 	@GetMapping("bankAccounts/{id}")
-	public BankAccount showBankAccount(@PathVariable Integer id) {
-		return bankAccountSvc.showBankAccount(id);
+	public BankAccount showBankAccount(@PathVariable Integer id, HttpServletResponse resp) {
+		BankAccount bankAccount = bankAccountSvc.showBankAccount(id);
+		if (bankAccount == null) {
+			resp.setStatus(404);
+		}
+		return bankAccount;
 	}
 	
 	@PostMapping("bankAccounts")
