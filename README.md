@@ -10,6 +10,7 @@
 | Read     | GET       | `/api/portfolios/{id}`|              | Representation of one Portfolio |
 | Create   | POST      | `/api/portfolios`         | JSON for new Portfolio | JSON of created Portfolio |
 | Update   | PUT       | `/api/portfolios/{id}`| JSON to update Portfolio | JSON of updated Portfolio |
+| Update   | PUT       | `/api/portfolios/{id}/changePassword`| JSON to update Password | JSON of new Password |
 | Delete   | DELETE    | `/api/portfolios/{id}`|              | |
 
 - Bank Account
