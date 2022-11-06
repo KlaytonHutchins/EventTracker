@@ -64,6 +64,14 @@ public class Withdrawal {
 		this.timestamp = timestamp;
 	}
 
+	public BankAccount getBankAccount() {
+		return bankAccount;
+	}
+
+	public void setBankAccount(BankAccount bankAccount) {
+		this.bankAccount = bankAccount;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

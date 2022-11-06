@@ -64,6 +64,14 @@ public class Purchase {
 		this.timestamp = timestamp;
 	}
 
+	public CreditCard getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(CreditCard creditCard) {
+		this.creditCard = creditCard;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

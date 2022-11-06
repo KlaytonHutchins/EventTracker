@@ -16,12 +16,12 @@ public class WithdrawalServiceImpl implements WithdrawalService {
 	private WithdrawalRepository withdrawalRepo;
 
 	@Override
-	public List<Withdrawal> listAllWithdrawals() {
-		return withdrawalRepo.findAll();
+	public List<Withdrawal> listAllWithdrawalsByBankId(int bid) {
+		return withdrawalRepo.findByBankAccountId(bid);
 	}
 
 	@Override
-	public Withdrawal showWithdrawal(int withdrawalId) {
+	public Withdrawal showWithdrawal(int withdrawalId, int bankAcctId) {
 		Optional<Withdrawal> op = withdrawalRepo.findById(withdrawalId);
 		Withdrawal with = null;
 		if (op.isPresent()) {
@@ -38,7 +38,7 @@ public class WithdrawalServiceImpl implements WithdrawalService {
 
 	@Override
 	public Withdrawal updateWithdrawal(int withdrawalId, Withdrawal withdrawal) {
-		Withdrawal dbWithdrawal = showWithdrawal(withdrawalId);
+		Withdrawal dbWithdrawal = showWithdrawal(withdrawalId, withdrawal.getBankAccount().getId());
 		if (withdrawal.getDescription() != null) {
 			dbWithdrawal.setDescription(withdrawal.getDescription());
 		}

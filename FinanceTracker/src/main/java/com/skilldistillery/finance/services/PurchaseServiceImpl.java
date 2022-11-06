@@ -16,12 +16,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 	private PurchaseRepository purchaseRepo;
 
 	@Override
-	public List<Purchase> listAllPurchases() {
-		return purchaseRepo.findAll();
+	public List<Purchase> listAllPurchasesByCreditCardId(int ccid) {
+		return purchaseRepo.findByCreditCardId(ccid);
 	}
 
 	@Override
-	public Purchase showPurchase(int purchaseId) {
+	public Purchase showPurchase(int purchaseId, int creditCardId) {
 		Optional<Purchase> op = purchaseRepo.findById(purchaseId);
 		Purchase pur = null;
 		if (op.isPresent()) {
@@ -38,7 +38,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	@Override
 	public Purchase updatePurchase(int purchaseId, Purchase purchase) {
-		Purchase dbPurchase = showPurchase(purchaseId);
+		Purchase dbPurchase = showPurchase(purchaseId, purchase.getCreditCard().getId());
 		if (purchase.getDescription() != null) {
 			dbPurchase.setDescription(purchase.getDescription());
 		}

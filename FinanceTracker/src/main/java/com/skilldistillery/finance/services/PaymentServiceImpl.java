@@ -16,12 +16,12 @@ public class PaymentServiceImpl implements PaymentService {
 	private PaymentRepository paymentRepo;
 
 	@Override
-	public List<Payment> listAllPayments() {
-		return paymentRepo.findAll();
+	public List<Payment> listAllPaymentsByCreditCardId(int ccid) {
+		return paymentRepo.findByCreditCardId(ccid);
 	}
 
 	@Override
-	public Payment showPayment(int paymentId) {
+	public Payment showPayment(int paymentId, int creditCardId) {
 		Optional<Payment> op = paymentRepo.findById(paymentId);
 		Payment pay = null;
 		if (op.isPresent()) {
@@ -38,7 +38,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public Payment updatePayment(int paymentId, Payment payment) {
-		Payment dbPayment = showPayment(paymentId);
+		Payment dbPayment = showPayment(paymentId, payment.getCreditCard().getId());
 		if (payment.getDescription() != null) {
 			dbPayment.setDescription(payment.getDescription());
 		}

@@ -17,16 +17,19 @@ public class DepositServiceImpl implements DepositService {
 	private DepositRepository depositRepo;
 
 	@Override
-	public List<Deposit> listAllDeposits() {
-		return depositRepo.findAll();
+	public List<Deposit> listAllDepositsByBankId(int bid) {
+		return depositRepo.findByBankAccountId(bid);
 	}
 
 	@Override
-	public Deposit showDeposit(int depositId) {
+	public Deposit showDeposit(int depositId, int bankAcctId) {
 		Optional<Deposit> op = depositRepo.findById(depositId);
 		Deposit dep = null;
 		if (op.isPresent()) {
 			dep = op.get();
+			if (dep.getBankAccount().getId() != bankAcctId) {
+				return null;
+			}
 		}
 		return dep;
 	}
@@ -39,7 +42,7 @@ public class DepositServiceImpl implements DepositService {
 
 	@Override
 	public Deposit updateDeposit(int depositId, Deposit deposit) {
-		Deposit dbDeposit = showDeposit(depositId);
+		Deposit dbDeposit = showDeposit(depositId, deposit.getBankAccount().getId());
 		if (deposit.getDescription() != null) {
 			dbDeposit.setDescription(deposit.getDescription());
 		}

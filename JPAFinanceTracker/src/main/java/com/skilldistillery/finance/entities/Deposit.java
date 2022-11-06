@@ -56,6 +56,14 @@ public class Deposit {
 		this.description = description;
 	}
 
+	public BankAccount getBankAccount() {
+		return bankAccount;
+	}
+
+	public void setBankAccount(BankAccount bankAccount) {
+		this.bankAccount = bankAccount;
+	}
+
 	public LocalDateTime getTimestamp() {
 		return timestamp;
 	}
