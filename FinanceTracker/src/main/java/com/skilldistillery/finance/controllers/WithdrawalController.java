@@ -20,13 +20,13 @@ import com.skilldistillery.finance.entities.Withdrawal;
 import com.skilldistillery.finance.services.WithdrawalService;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/portfolios/{pid}")
 public class WithdrawalController {
 	
 	@Autowired
 	private WithdrawalService withdrawalSvc;
 	
-	@GetMapping("bankAccounts/{bid}/withdrawals}")
+	@GetMapping("bankAccounts/{bid}/withdrawals")
 	public List<Withdrawal> listWithdrawals(@PathVariable Integer bid) {
 		return withdrawalSvc.listAllWithdrawalsByBankId(bid);
 	}

@@ -20,13 +20,13 @@ import com.skilldistillery.finance.entities.Deposit;
 import com.skilldistillery.finance.services.DepositService;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/portfolios/{pid}")
 public class DepositController {
 	
 	@Autowired
 	private DepositService depositSvc;
 	
-	@GetMapping("bankAccounts/{bid}/deposits}")
+	@GetMapping("bankAccounts/{bid}/deposits")
 	public List<Deposit> listDeposits(@PathVariable Integer bid) {
 		return depositSvc.listAllDepositsByBankId(bid);
 	}

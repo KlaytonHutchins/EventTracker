@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.finance.entities.BankAccount;
+import com.skilldistillery.finance.entities.UserPortfolio;
 import com.skilldistillery.finance.services.BankAccountService;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/portfolios/{pid}")
 public class BankAccountController {
 	
 	@Autowired
@@ -36,7 +37,10 @@ public class BankAccountController {
 	}
 	
 	@PostMapping("bankAccounts")
-	public BankAccount createBankAccount(@RequestBody BankAccount bankAccount, HttpServletResponse resp, HttpServletRequest req) {
+	public BankAccount createBankAccount(@PathVariable Integer pid, @RequestBody BankAccount bankAccount, HttpServletResponse resp, HttpServletRequest req) {
+		UserPortfolio port = new UserPortfolio();
+		port.setId(pid);
+		bankAccount.setUserPortfolio(port);
 		bankAccount = bankAccountSvc.createBankAccount(bankAccount);
 		resp.setStatus(201);
 		StringBuffer urlSb = req.getRequestURL();

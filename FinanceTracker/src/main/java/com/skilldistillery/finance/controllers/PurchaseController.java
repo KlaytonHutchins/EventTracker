@@ -20,13 +20,13 @@ import com.skilldistillery.finance.entities.Purchase;
 import com.skilldistillery.finance.services.PurchaseService;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/portfolios/{pid}")
 public class PurchaseController {
 	
 	@Autowired
 	private PurchaseService purchaseSvc;
 	
-	@GetMapping("creditCards/{ccid}/purchases}")
+	@GetMapping("creditCards/{ccid}/purchases")
 	public List<Purchase> listPurchases(@PathVariable Integer ccid) {
 		return purchaseSvc.listAllPurchasesByCreditCardId(ccid);
 	}

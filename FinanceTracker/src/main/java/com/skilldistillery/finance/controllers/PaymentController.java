@@ -20,13 +20,13 @@ import com.skilldistillery.finance.entities.Payment;
 import com.skilldistillery.finance.services.PaymentService;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/portfolios/{pid}")
 public class PaymentController {
 	
 	@Autowired
 	private PaymentService paymentSvc;
 	
-	@GetMapping("creditCards/{ccid}/payments}")
+	@GetMapping("creditCards/{ccid}/payments")
 	public List<Payment> listPayments(@PathVariable Integer ccid) {
 		return paymentSvc.listAllPaymentsByCreditCardId(ccid);
 	}

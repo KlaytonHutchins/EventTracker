@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.finance.entities.CreditCard;
+import com.skilldistillery.finance.entities.UserPortfolio;
 import com.skilldistillery.finance.services.CreditCardService;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/portfolios/{pid}")
 public class CreditCardController {
 	
 	@Autowired
@@ -37,7 +38,10 @@ public class CreditCardController {
 	}
 	
 	@PostMapping("creditCards")
-	public CreditCard createCreditCard(@RequestBody CreditCard creditCard, HttpServletResponse resp, HttpServletRequest req) {
+	public CreditCard createCreditCard(@PathVariable Integer pid, @RequestBody CreditCard creditCard, HttpServletResponse resp, HttpServletRequest req) {
+		UserPortfolio port = new UserPortfolio();
+		port.setId(pid);
+		creditCard.setUserPortfolio(port);
 		creditCard = creditCardSvc.createCreditCard(creditCard);
 		resp.setStatus(201);
 		StringBuffer urlSb = req.getRequestURL();
