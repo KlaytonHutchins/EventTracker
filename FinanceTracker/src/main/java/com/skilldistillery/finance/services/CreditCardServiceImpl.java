@@ -42,6 +42,9 @@ public class CreditCardServiceImpl implements CreditCardService {
 		if (creditCard.getInstitutionName() != null) {
 			dbCard.setInstitutionName(creditCard.getInstitutionName());
 		}
+		if (creditCard.getCreditLimit() != 0) {
+			dbCard.setCreditLimit(creditCard.getCreditLimit());
+		}
 		return dbCard;
 	}
 

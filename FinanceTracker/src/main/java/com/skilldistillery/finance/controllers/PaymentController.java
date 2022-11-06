@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.finance.entities.BankAccount;
 import com.skilldistillery.finance.entities.CreditCard;
 import com.skilldistillery.finance.entities.Payment;
 import com.skilldistillery.finance.services.PaymentService;
@@ -37,7 +38,10 @@ public class PaymentController {
 	}
 	
 	@PostMapping("creditCards/{ccid}/payments")
-	public Payment createPayment(@RequestBody Payment payment, HttpServletResponse resp, HttpServletRequest req) {
+	public Payment createPayment(@PathVariable Integer ccid, @RequestBody Payment payment, HttpServletResponse resp, HttpServletRequest req) {
+		CreditCard cc = new CreditCard();
+		cc.setId(ccid);
+		payment.setCreditCard(cc);
 		payment = paymentSvc.createPayment(payment);
 		resp.setStatus(201);
 		StringBuffer urlSb = req.getRequestURL();

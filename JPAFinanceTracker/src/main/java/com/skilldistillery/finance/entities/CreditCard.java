@@ -31,6 +31,9 @@ public class CreditCard {
 	@Formula("(SELECT (SELECT SUM(pay.amount) FROM Payment pay WHERE pay.credit_card_id = id) - (SELECT SUM(pur.amount) FROM Purchase pur WHERE pur.credit_card_id = id))")
 	private Double balance;
 	
+	@Column(name = "credit_limit")
+	private int creditLimit;
+	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_portfolio_id")
@@ -66,6 +69,14 @@ public class CreditCard {
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+
+	public int getCreditLimit() {
+		return creditLimit;
+	}
+
+	public void setCreditLimit(int creditLimit) {
+		this.creditLimit = creditLimit;
 	}
 
 	public UserPortfolio getUserPortfolio() {

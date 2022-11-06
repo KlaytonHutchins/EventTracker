@@ -37,7 +37,10 @@ public class DepositController {
 	}
 	
 	@PostMapping("bankAccounts/{bid}/deposits")
-	public Deposit createDeposit(@RequestBody Deposit deposit, HttpServletResponse resp, HttpServletRequest req) {
+	public Deposit createDeposit(@PathVariable Integer bid, @RequestBody Deposit deposit, HttpServletResponse resp, HttpServletRequest req) {
+		BankAccount ba = new BankAccount();
+		ba.setId(bid);
+		deposit.setBankAccount(ba);
 		deposit = depositSvc.createDeposit(deposit);
 		resp.setStatus(201);
 		StringBuffer urlSb = req.getRequestURL();

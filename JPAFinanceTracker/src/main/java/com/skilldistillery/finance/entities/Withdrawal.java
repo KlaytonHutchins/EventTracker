@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -23,6 +25,7 @@ public class Withdrawal {
 	
 	private String description;
 	
+	@CreationTimestamp
 	private LocalDateTime timestamp;
 	
 	@JsonIgnore

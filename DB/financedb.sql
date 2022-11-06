@@ -38,7 +38,7 @@ DROP TABLE IF EXISTS `bank_account` ;
 CREATE TABLE IF NOT EXISTS `bank_account` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `institution_name` VARCHAR(45) NULL,
-  `balance` DECIMAL(12,2) NULL,
+  `balance` DECIMAL(12,2) NULL DEFAULT 0,
   `user_portfolio_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_bank_account_user_portfolio1_idx` (`user_portfolio_id` ASC),
@@ -100,8 +100,9 @@ DROP TABLE IF EXISTS `credit_card` ;
 CREATE TABLE IF NOT EXISTS `credit_card` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `institution_name` VARCHAR(45) NULL,
-  `balance` DECIMAL(12,2) NULL,
+  `balance` DECIMAL(12,2) NULL DEFAULT 0,
   `user_portfolio_id` INT NOT NULL,
+  `credit_limit` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_credit_card_user_portfolio1_idx` (`user_portfolio_id` ASC),
   CONSTRAINT `fk_credit_card_user_portfolio1`
@@ -179,7 +180,28 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `financedb`;
-INSERT INTO `bank_account` (`id`, `institution_name`, `balance`, `user_portfolio_id`) VALUES (1, 'Wells Fargo', 13.25, 1);
+INSERT INTO `bank_account` (`id`, `institution_name`, `balance`, `user_portfolio_id`) VALUES (1, 'Wells Fargo', 0, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `withdrawal`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `financedb`;
+INSERT INTO `withdrawal` (`id`, `amount`, `description`, `timestamp`, `account_id`) VALUES (1, 3.21, NULL, NULL, 1);
+INSERT INTO `withdrawal` (`id`, `amount`, `description`, `timestamp`, `account_id`) VALUES (2, 12.11, NULL, NULL, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `deposit`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `financedb`;
+INSERT INTO `deposit` (`id`, `amount`, `description`, `timestamp`, `account_id`) VALUES (1, 84.32, NULL, NULL, 1);
 
 COMMIT;
 
@@ -189,7 +211,29 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `financedb`;
-INSERT INTO `credit_card` (`id`, `institution_name`, `balance`, `user_portfolio_id`) VALUES (1, 'Capital One', 23.00, 1);
+INSERT INTO `credit_card` (`id`, `institution_name`, `balance`, `user_portfolio_id`, `credit_limit`) VALUES (1, 'Capital One', 0, 1, 4000);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `payment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `financedb`;
+INSERT INTO `payment` (`id`, `amount`, `description`, `timestamp`, `credit_card_id`) VALUES (1, 12.00, NULL, NULL, 1);
+INSERT INTO `payment` (`id`, `amount`, `description`, `timestamp`, `credit_card_id`) VALUES (2, 33.21, NULL, NULL, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `purchase`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `financedb`;
+INSERT INTO `purchase` (`id`, `amount`, `description`, `timestamp`, `credit_card_id`) VALUES (1, 3.32, NULL, NULL, 1);
+INSERT INTO `purchase` (`id`, `amount`, `description`, `timestamp`, `credit_card_id`) VALUES (2, 8.22, NULL, NULL, 1);
 
 COMMIT;
 

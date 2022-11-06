@@ -37,7 +37,10 @@ public class WithdrawalController {
 	}
 	
 	@PostMapping("bankAccounts/{bid}/withdrawals")
-	public Withdrawal createWithdrawal(@RequestBody Withdrawal withdrawal, HttpServletResponse resp, HttpServletRequest req) {
+	public Withdrawal createWithdrawal(@PathVariable Integer bid, @RequestBody Withdrawal withdrawal, HttpServletResponse resp, HttpServletRequest req) {
+		BankAccount ba = new BankAccount();
+		ba.setId(bid);
+		withdrawal.setBankAccount(ba);
 		withdrawal = withdrawalSvc.createWithdrawal(withdrawal);
 		resp.setStatus(201);
 		StringBuffer urlSb = req.getRequestURL();

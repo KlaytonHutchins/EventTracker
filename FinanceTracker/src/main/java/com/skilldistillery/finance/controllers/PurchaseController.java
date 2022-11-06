@@ -37,7 +37,10 @@ public class PurchaseController {
 	}
 	
 	@PostMapping("creditCards/{ccid}/purchases")
-	public Purchase createPurchase(@RequestBody Purchase purchase, HttpServletResponse resp, HttpServletRequest req) {
+	public Purchase createPurchase(@PathVariable Integer ccid, @RequestBody Purchase purchase, HttpServletResponse resp, HttpServletRequest req) {
+		CreditCard cc = new CreditCard();
+		cc.setId(ccid);
+		purchase.setCreditCard(cc);
 		purchase = purchaseSvc.createPurchase(purchase);
 		resp.setStatus(201);
 		StringBuffer urlSb = req.getRequestURL();
