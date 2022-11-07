@@ -1,6 +1,10 @@
 # Finance Tracker
 
-## REST Endpoints:
+## Details
+
+This application allows users to track his/her finances with any number of credit cards and banks. Users can enter deposits, withdrawals, purchases, and payments as they make them and the application will display applicable data about his/her finances.
+
+## REST Endpoints
 
 - User Portfolio
 
@@ -72,3 +76,11 @@
 | Create   | POST      | `/creditCards/{ccid}/purchases`         | JSON for new Purchase | JSON of created Purchase |
 | Update   | PUT       | `/creditCards/{ccid}/purchases/{payId}`| JSON to update Purchase | JSON of updated Purchase |
 | Delete   | DELETE    | `/creditCards/{ccid}/purchases/{payId}`|              | |
+
+## Contact Information
+
+Email:
+klaytonhutchins@gmail.com
+
+GitHub:
+www.github.com/KlaytonHutchins
