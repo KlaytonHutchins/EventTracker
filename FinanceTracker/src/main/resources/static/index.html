@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Finance Tracker</title>
+<script type="text/javascript" src="js/script.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Welcome</h1>
+		<div id="error"></div>
+		<div id="bankAcctDiv">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Bank</th>
+						<th>Balance</th>
+					</tr>
+				</thead>
+				<tbody id="bankAcctsBody"></tbody>
+			</table>
+			<form name="newBankAcct"><input type="text" name="bankAcct"/><button name="addBankAcct">Add Bank Account</button></form>
+		</div>
+		<div id="creditCardDiv">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>CC Company</th>
+						<th>Balance</th>
+						<th>Credit Limit</th>
+					</tr>
+				</thead>
+				<tbody id="creditCardsBody"></tbody>
+			</table>
+			<form name="newCreditCard"><input type="text" name="creditCard"/><input type="number" name="creditLimit"/><button name="addCreditCard">Add Credit Card</button></form>
+		</div>
+		<div id="detailDiv" class="row justify-content-start">
+			<div class="col-6">
+				<h3 id="withdrawalPurchaseHeader"></h3>
+				<form name="withdrawalPurchaseForm">
+					<input type="text" name="withdrawalPurchaseAmount"/>
+					<input type="text" name="withdrawalPurchaseDescription"/>
+					<button name="withdrawalPurchaseButton"></button>
+				</form>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Amount</th>
+							<th>Time</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody id="withdrawalPurchaseBody"></tbody>
+				</table>
+			</div>
+			<div class="col-6">
+				<h3 id="depositPaymentHeader"></h3>
+				<form name="depositPaymentForm">
+					<input type="text" name="depositPaymentAmount"/>
+					<input type="text" name="depositPaymentDescription"/>
+					<button name="depositPaymentButton"></button>
+				</form>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Amount</th>
+							<th>Time</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody id="depositPaymentBody"></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous"></script>
+</body>
+</html>
