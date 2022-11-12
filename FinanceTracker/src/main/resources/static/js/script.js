@@ -63,7 +63,7 @@ function loadDeposits(bankAcctId) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
 				let deposits = JSON.parse(xhr.responseText);
-				displayDeposits(deposits);
+				displayDeposits(bankAcctId, deposits);
 				displayError('');
 			} else if (xhr.status === 404) {
 				displayError('Deposits Not Found');
@@ -82,7 +82,7 @@ function loadWithdrawals(bankAcctId) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
 				let withdrawals = JSON.parse(xhr.responseText);
-				displayWithdrawals(withdrawals);
+				displayWithdrawals(bankAcctId, withdrawals);
 				displayError('');
 			} else if (xhr.status === 404) {
 				displayError('Withdrawals Not Found');
@@ -152,7 +152,7 @@ function displaycreditCards(creditCards) {
 	}
 };
 
-function displayDeposits(deposits) {
+function displayDeposits(bankAcctId, deposits) {
 	document.getElementById('bankAcctDiv').style.display = 'none';
 	document.getElementById('creditCardDiv').style.display = 'none';
 	document.getElementById('detailDiv').style.display = 'flex';
@@ -160,6 +160,19 @@ function displayDeposits(deposits) {
 	depositPaymentHeader.textContent = 'Deposits';
 	let depositPaymentButton = document.getElementsByName('depositPaymentButton')[0];
 	depositPaymentButton.textContent = 'Add Deposit';
+	depositPaymentButton.addEventListener('click', function(event) {
+		event.preventDefault();
+		let deposit = {
+			amount: document.getElementsByName('depositPaymentAmount')[0].value,
+			description: document.getElementsByName('depositPaymentDescription')[0].value
+		}
+		if (!isNaN(deposit.amount) && deposit.amount !== '' && deposit.description !== '') {
+			document.getElementsByName('depositPaymentAmount')[0].value = '';
+			document.getElementsByName('depositPaymentDescription')[0].value = '';
+			console.log(deposit);
+			createDeposit(bankAcctId, deposit);
+		}
+	});
 	let depositBody = document.getElementById('depositPaymentBody');
 	depositBody.textContent = '';
 	if (deposits && Array.isArray(deposits) && deposits.length > 0) {
@@ -183,7 +196,7 @@ function displayDeposits(deposits) {
 	}
 };
 
-function displayWithdrawals(withdrawals) {
+function displayWithdrawals(bankAcctId, withdrawals) {
 	document.getElementById('bankAcctDiv').style.display = 'none';
 	document.getElementById('creditCardDiv').style.display = 'none';
 	document.getElementById('detailDiv').style.display = 'flex';
@@ -191,6 +204,18 @@ function displayWithdrawals(withdrawals) {
 	withdrawalPurchaseHeader.textContent = 'Withdrawals';
 	let withdrawalPurchaseButton = document.getElementsByName('withdrawalPurchaseButton')[0];
 	withdrawalPurchaseButton.textContent = 'Add Withdrawal';
+	withdrawalPurchaseButton.addEventListener('click', function(event) {
+		event.preventDefault();
+		let withdrawal = {
+			amount: document.getElementsByName('withdrawalPurchaseAmount')[0].value,
+			description: document.getElementsByName('withdrawalPurchaseDescription')[0].value
+		}
+		if (!isNaN(withdrawal.amount) && withdrawal.amount !== '' && withdrawal.description !== '') {
+			document.getElementsByName('withdrawalPurchaseAmount')[0].value = '';
+			document.getElementsByName('withdrawalPurchaseDescription')[0].value = '';
+			createWithdrawal(bankAcctId, withdrawal);
+		}
+	});
 	let withdrawalBody = document.getElementById('withdrawalPurchaseBody');
 	withdrawalBody.textContent = '';
 	if (withdrawals && Array.isArray(withdrawals) && withdrawals.length > 0) {
@@ -215,7 +240,6 @@ function displayWithdrawals(withdrawals) {
 };
 
 function createBankAcct(bankAcct) {
-	console.log(bankAcct);
 	let xhr = new XMLHttpRequest();
 	xhr.open('POST', 'api/portfolios/1/bankAccounts', true);
 	xhr.setRequestHeader("Content-type", "application/json");
@@ -231,5 +255,41 @@ function createBankAcct(bankAcct) {
 		}
 	};
 	xhr.send(JSON.stringify(bankAcct));
+};
+
+function createDeposit(bankAcctId, deposit) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST', 'api/portfolios/1/bankAccounts/'+bankAcctId+'/deposits', true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 201) {
+				deposit = JSON.parse(xhr.responseText);
+				loadDeposits(bankAcctId);
+				loadWithdrawals(bankAcctId);
+			} else {
+				displayError('An error occured: ' + xhr.status);
+			}
+		}
+	};
+	xhr.send(JSON.stringify(deposit));
+};
+
+function createWithdrawal(bankAcctId, withdrawal) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST', 'api/portfolios/1/bankAccounts/'+bankAcctId+'/withdrawals', true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 201) {
+				withdrawal = JSON.parse(xhr.responseText);
+				loadDeposits(bankAcctId);
+				loadWithdrawals(bankAcctId);
+			} else {
+				displayError('An error occured: ' + xhr.status);
+			}
+		}
+	};
+	xhr.send(JSON.stringify(withdrawal));
 };
 
