@@ -11,6 +11,7 @@ function init() {
 		event.preventDefault();
 		let bankAcct = {institutionName: document.getElementsByName('newBankAcct')[0].bankAcct.value}
 		if (bankAcct.institutionName !== '') {
+			document.getElementsByName('newBankAcct')[0].bankAcct.value = '';
 			createBankAcct(bankAcct);
 		}
 	})
@@ -21,6 +22,8 @@ function init() {
 			creditLimit: document.getElementsByName('newCreditCard')[0].creditLimit.value
 			}
 		if (creditCard.institutionName !== '' && creditCard.creditLimit !== '' && !isNaN(creditCard.creditLimit)) {
+			document.getElementsByName('newCreditCard')[0].creditCard.value = '';
+			document.getElementsByName('newCreditCard')[0].creditLimit.value = '';
 			createCreditCard(creditCard);
 		}
 	})
@@ -167,11 +170,39 @@ function displayBankAccts(bankAccts) {
 				td.textContent = 0;
 			}
 			tr.appendChild(td);
+			
+			td = document.createElement('td');
+			let deleteForm = document.createElement('form');
+			td.appendChild(deleteForm);
+			let deleteButton = document.createElement('button');
+			deleteButton.setAttribute('class', 'btn btn-secondary');
+			deleteButton.textContent = 'Delete';
+//			let image = document.createElement('svg');
+//			image.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+//			image.setAttribute('width', '16');
+//			image.setAttribute('height', '16');
+//			image.setAttribute('fill', 'currentColor');
+//			image.setAttribute('class', 'bi bi-trash3');
+//			image.setAttribute('viewBox', '0 0 16 16');
+//			let path = document.createElement('path');
+//			path.setAttribute('d', 'M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z');
+//			image.appendChild(path);
+//			deleteButton.appendChild(image);
+			deleteForm.appendChild(deleteButton);
+			tr.appendChild(td);
+			deleteButton.addEventListener('click', function(event) {
+				event.preventDefault();
+				let confirmation = confirm("Are you sure?");
+				if (confirmation) {
+					deleteBankAcct(bankAcct.id);
+				}
+			})
+			
 			bankAcctsBody.appendChild(tr);
 			tr.addEventListener('click', function(event) {
 				event.preventDefault();
 				let detailHeader = document.getElementById('detailH2');
-				detailHeader.textContent = 'Bank Account - '+bankAcct.institutionName;
+				detailHeader.textContent = 'Bank Account - '+bankAcct.institutionName+'('+bankAcct.id+')';
 				loadDeposits(bankAcct.id);
 				loadWithdrawals(bankAcct.id);
 			});
@@ -184,9 +215,7 @@ function displaycreditCards(creditCards) {
 	let creditCardsBody = document.getElementById('creditCardsBody');
 	creditCardsBody.textContent = '';
 	if (creditCards && Array.isArray(creditCards) && creditCards.length > 0) {
-	console.log(creditCards);
 		for (let creditCard of creditCards) {
-			console.log('in loop');
 			let tr = document.createElement('tr');
 			let td = document.createElement('td');
 			td.textContent = creditCard.institutionName;
@@ -201,11 +230,39 @@ function displaycreditCards(creditCards) {
 			td = document.createElement('td');
 			td.textContent = creditCard.creditLimit;
 			tr.appendChild(td);
+			
+			td = document.createElement('td');
+			let deleteForm = document.createElement('form');
+			td.appendChild(deleteForm);
+			let deleteButton = document.createElement('button');
+			deleteButton.setAttribute('class', 'btn btn-secondary');
+			deleteButton.textContent = 'Delete';
+//			let image = document.createElement('svg');
+//			image.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+//			image.setAttribute('width', '16');
+//			image.setAttribute('height', '16');
+//			image.setAttribute('fill', 'currentColor');
+//			image.setAttribute('class', 'bi bi-trash3');
+//			image.setAttribute('viewBox', '0 0 16 16');
+//			let path = document.createElement('path');
+//			path.setAttribute('d', 'M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z');
+//			image.appendChild(path);
+//			deleteButton.appendChild(image);
+			deleteForm.appendChild(deleteButton);
+			tr.appendChild(td);
+			deleteButton.addEventListener('click', function(event) {
+				event.preventDefault();
+				let confirmation = confirm("Are you sure?");
+				if (confirmation) {
+					deleteCreditCard(creditCard.id);
+				}
+			})
+			
 			creditCardsBody.appendChild(tr);
 			tr.addEventListener('click', function(event) {
 				event.preventDefault();
 				let detailHeader = document.getElementById('detailH2');
-				detailHeader.textContent = 'Credit Card - '+creditCard.institutionName+' (Limit: '+creditCard.creditLimit+')';
+				detailHeader.textContent = 'Credit Card - '+creditCard.institutionName+'('+creditCard.id+') (Limit: '+creditCard.creditLimit+')';
 				loadPayments(creditCard.id);
 				loadPurchases(creditCard.id);
 			});
@@ -216,11 +273,13 @@ function displaycreditCards(creditCards) {
 function displayDeposits(bankAcctId, deposits) {
 	document.getElementById('bankAcctDiv').style.display = 'none';
 	document.getElementById('creditCardDiv').style.display = 'none';
+	document.getElementsByName('paymentButton')[0].style.display = 'none';
+	document.getElementsByName('depositButton')[0].style.display = 'flex';
 	document.getElementById('detailDiv').style.display = 'flex';
 	document.getElementById('detailHeader').style.display = 'flex';
 	let depositPaymentHeader = document.getElementById('depositPaymentHeader');
 	depositPaymentHeader.textContent = 'Deposits';
-	let depositPaymentButton = document.getElementsByName('depositPaymentButton')[0];
+	let depositPaymentButton = document.getElementsByName('depositButton')[0];
 	depositPaymentButton.textContent = 'Add Deposit';
 	depositPaymentButton.addEventListener('click', function(event) {
 		event.preventDefault();
@@ -245,12 +304,37 @@ function displayDeposits(bankAcctId, deposits) {
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
-			td.textContent = deposit.timestamp;
+			let timestamp = deposit.timestamp.substring(5,10)+'-'+deposit.timestamp.substring(0,4)+' @ '+deposit.timestamp.substring(11,16);
+			td.textContent = timestamp;
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
 			td.textContent = deposit.description;
 			tr.appendChild(td);
+			
+			td = document.createElement('td');
+			let deleteForm = document.createElement('form');
+			td.appendChild(deleteForm);
+			let deleteButton = document.createElement('button');
+			deleteButton.setAttribute('class', 'btn btn-secondary');
+			deleteButton.textContent = 'Delete';
+//			let image = document.createElement('svg');
+//			image.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+//			image.setAttribute('width', '16');
+//			image.setAttribute('height', '16');
+//			image.setAttribute('fill', 'currentColor');
+//			image.setAttribute('class', 'bi bi-trash3');
+//			image.setAttribute('viewBox', '0 0 16 16');
+//			let path = document.createElement('path');
+//			path.setAttribute('d', 'M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z');
+//			image.appendChild(path);
+//			deleteButton.appendChild(image);
+			deleteForm.appendChild(deleteButton);
+			tr.appendChild(td);
+			deleteButton.addEventListener('click', function(event) {
+				event.preventDefault();
+				deleteDPPW('deposits', bankAcctId, deposit.id);
+			})
 			
 			depositBody.appendChild(tr);
 		}
@@ -260,11 +344,13 @@ function displayDeposits(bankAcctId, deposits) {
 function displayWithdrawals(bankAcctId, withdrawals) {
 	document.getElementById('bankAcctDiv').style.display = 'none';
 	document.getElementById('creditCardDiv').style.display = 'none';
+	document.getElementsByName('purchaseButton')[0].style.display = 'none';
+	document.getElementsByName('withdrawalButton')[0].style.display = 'flex';
 	document.getElementById('detailDiv').style.display = 'flex';
 	document.getElementById('detailHeader').style.display = 'flex';
 	let withdrawalPurchaseHeader = document.getElementById('withdrawalPurchaseHeader');
 	withdrawalPurchaseHeader.textContent = 'Withdrawals';
-	let withdrawalPurchaseButton = document.getElementsByName('withdrawalPurchaseButton')[0];
+	let withdrawalPurchaseButton = document.getElementsByName('withdrawalButton')[0];
 	withdrawalPurchaseButton.textContent = 'Add Withdrawal';
 	withdrawalPurchaseButton.addEventListener('click', function(event) {
 		event.preventDefault();
@@ -289,12 +375,37 @@ function displayWithdrawals(bankAcctId, withdrawals) {
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
-			td.textContent = withdrawal.timestamp;
+			let timestamp = withdrawal.timestamp.substring(5,10)+'-'+withdrawal.timestamp.substring(0,4)+' @ '+withdrawal.timestamp.substring(11,16);
+			td.textContent = timestamp;
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
 			td.textContent = withdrawal.description;
 			tr.appendChild(td);
+			
+			td = document.createElement('td');
+			let deleteForm = document.createElement('form');
+			td.appendChild(deleteForm);
+			let deleteButton = document.createElement('button');
+			deleteButton.setAttribute('class', 'btn btn-secondary');
+			deleteButton.textContent = 'Delete';
+//			let image = document.createElement('svg');
+//			image.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+//			image.setAttribute('width', '16');
+//			image.setAttribute('height', '16');
+//			image.setAttribute('fill', 'currentColor');
+//			image.setAttribute('class', 'bi bi-trash3');
+//			image.setAttribute('viewBox', '0 0 16 16');
+//			let path = document.createElement('path');
+//			path.setAttribute('d', 'M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z');
+//			image.appendChild(path);
+//			deleteButton.appendChild(image);
+			deleteForm.appendChild(deleteButton);
+			tr.appendChild(td);
+			deleteButton.addEventListener('click', function(event) {
+				event.preventDefault();
+				deleteDPPW('withdrawals', bankAcctId, withdrawal.id);
+			})
 			
 			withdrawalBody.appendChild(tr);
 		}
@@ -304,14 +415,17 @@ function displayWithdrawals(bankAcctId, withdrawals) {
 function displayPayments(creditCardId, payments) {
 	document.getElementById('bankAcctDiv').style.display = 'none';
 	document.getElementById('creditCardDiv').style.display = 'none';
+	document.getElementsByName('depositButton')[0].style.display = 'none';
+	document.getElementsByName('paymentButton')[0].style.display = 'flex';
 	document.getElementById('detailDiv').style.display = 'flex';
 	document.getElementById('detailHeader').style.display = 'flex';
 	let depositPaymentHeader = document.getElementById('depositPaymentHeader');
 	depositPaymentHeader.textContent = 'Payments';
-	let depositPaymentButton = document.getElementsByName('depositPaymentButton')[0];
+	let depositPaymentButton = document.getElementsByName('paymentButton')[0];
 	depositPaymentButton.textContent = 'Add Payment';
 	depositPaymentButton.addEventListener('click', function(event) {
 		event.preventDefault();
+		console.log('in new function');
 		let payment = {
 			amount: document.getElementsByName('depositPaymentAmount')[0].value,
 			description: document.getElementsByName('depositPaymentDescription')[0].value
@@ -333,12 +447,37 @@ function displayPayments(creditCardId, payments) {
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
-			td.textContent = payment.timestamp;
+			let timestamp = payment.timestamp.substring(5,10)+'-'+payment.timestamp.substring(0,4)+' @ '+payment.timestamp.substring(11,16);
+			td.textContent = timestamp;
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
 			td.textContent = payment.description;
 			tr.appendChild(td);
+			
+			td = document.createElement('td');
+			let deleteForm = document.createElement('form');
+			td.appendChild(deleteForm);
+			let deleteButton = document.createElement('button');
+			deleteButton.setAttribute('class', 'btn btn-secondary');
+			deleteButton.textContent = 'Delete';
+//			let image = document.createElement('svg');
+//			image.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+//			image.setAttribute('width', '16');
+//			image.setAttribute('height', '16');
+//			image.setAttribute('fill', 'currentColor');
+//			image.setAttribute('class', 'bi bi-trash3');
+//			image.setAttribute('viewBox', '0 0 16 16');
+//			let path = document.createElement('path');
+//			path.setAttribute('d', 'M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z');
+//			image.appendChild(path);
+//			deleteButton.appendChild(image);
+			deleteForm.appendChild(deleteButton);
+			tr.appendChild(td);
+			deleteButton.addEventListener('click', function(event) {
+				event.preventDefault();
+				deleteDPPW('payments', creditCardId, payment.id);
+			})
 			
 			paymentBody.appendChild(tr);
 		}
@@ -348,11 +487,13 @@ function displayPayments(creditCardId, payments) {
 function displayPurchases(creditCardId, purchases) {
 	document.getElementById('bankAcctDiv').style.display = 'none';
 	document.getElementById('creditCardDiv').style.display = 'none';
+	document.getElementsByName('withdrawalButton')[0].style.display = 'none';
+	document.getElementsByName('purchaseButton')[0].style.display = 'flex';
 	document.getElementById('detailDiv').style.display = 'flex';
 	document.getElementById('detailHeader').style.display = 'flex';
 	let withdrawalPurchaseHeader = document.getElementById('withdrawalPurchaseHeader');
 	withdrawalPurchaseHeader.textContent = 'Purchases';
-	let withdrawalPurchaseButton = document.getElementsByName('withdrawalPurchaseButton')[0];
+	let withdrawalPurchaseButton = document.getElementsByName('purchaseButton')[0];
 	withdrawalPurchaseButton.textContent = 'Add Purchase';
 	withdrawalPurchaseButton.addEventListener('click', function(event) {
 		event.preventDefault();
@@ -377,12 +518,37 @@ function displayPurchases(creditCardId, purchases) {
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
-			td.textContent = purchase.timestamp;
+			let timestamp = purchase.timestamp.substring(5,10)+'-'+purchase.timestamp.substring(0,4)+' @ '+purchase.timestamp.substring(11,16);
+			td.textContent = timestamp;
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
 			td.textContent = purchase.description;
 			tr.appendChild(td);
+			
+			td = document.createElement('td');
+			let deleteForm = document.createElement('form');
+			td.appendChild(deleteForm);
+			let deleteButton = document.createElement('button');
+			deleteButton.setAttribute('class', 'btn btn-secondary');
+			deleteButton.textContent = 'Delete';
+//			let image = document.createElement('svg');
+//			image.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+//			image.setAttribute('width', '16');
+//			image.setAttribute('height', '16');
+//			image.setAttribute('fill', 'currentColor');
+//			image.setAttribute('class', 'bi bi-trash3');
+//			image.setAttribute('viewBox', '0 0 16 16');
+//			let path = document.createElement('path');
+//			path.setAttribute('d', 'M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z');
+//			image.appendChild(path);
+//			deleteButton.appendChild(image);
+			deleteForm.appendChild(deleteButton);
+			tr.appendChild(td);
+			deleteButton.addEventListener('click', function(event) {
+				event.preventDefault();
+				deleteDPPW('purchases', creditCardId, purchase.id);
+			})
 			
 			purchaseBody.appendChild(tr);
 		}
@@ -396,9 +562,11 @@ function createBankAcct(bankAcct) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
-				bankAcct = JSON.parse(xhr.responseText);
-				loadDeposits(bankAcct.id);
-				loadWithdrawals(bankAcct.id);
+				let newBankAcct = JSON.parse(xhr.responseText);
+				let detailHeader = document.getElementById('detailH2');
+				detailHeader.textContent = 'Bank Account - '+newBankAcct.institutionName+'('+newBankAcct.id+')';
+				loadDeposits(newBankAcct.id);
+				loadWithdrawals(newBankAcct.id);
 			} else {
 				displayError('An error occured: ' + xhr.status);
 			}
@@ -450,9 +618,11 @@ function createCreditCard(creditCard) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
-				creditCard = JSON.parse(xhr.responseText);
-				loadPayments(creditCard.id);
-				loadPurchases(creditCard.id);
+				let newCreditCard = JSON.parse(xhr.responseText);
+				let detailHeader = document.getElementById('detailH2');
+				detailHeader.textContent = 'Credit Card - '+newCreditCard.institutionName+'('+newCreditCard.id+') (Limit: '+newCreditCard.creditLimit+')';
+				loadPayments(newCreditCard.id);
+				loadPurchases(newCreditCard.id);
 			} else {
 				displayError('An error occured: ' + xhr.status);
 			}
@@ -463,6 +633,7 @@ function createCreditCard(creditCard) {
 
 function createPayment(creditCardId, payment) {
 	let xhr = new XMLHttpRequest();
+	console.log(creditCardId);
 	xhr.open('POST', 'api/portfolios/1/creditCards/'+creditCardId+'/payments', true);
 	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.onreadystatechange = function() {
@@ -496,4 +667,56 @@ function createPurchase(creditCardId, purchase) {
 	};
 	xhr.send(JSON.stringify(purchase));
 };
+
+function deleteBankAcct(id) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('DELETE', 'api/portfolios/1/bankAccounts/'+id, true);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 204) {
+				init();
+			} else {
+				displayError('An error occured: ' + xhr.status);
+			}
+		}
+	};
+	xhr.send();
+}
+
+function deleteCreditCard(id) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('DELETE', 'api/portfolios/1/creditCards/'+id, true);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 204) {
+				init();
+			} else {
+				displayError('An error occured: ' + xhr.status);
+			}
+		}
+	};
+	xhr.send();
+}
+
+function deleteDPPW(type, bcid, id) {
+	let xhr = new XMLHttpRequest();
+	let baORcc = (type === 'withdrawals' || type === 'deposits') ? 'bankAccounts' : 'creditCards';
+	xhr.open('DELETE', 'api/portfolios/1/'+baORcc+'/'+bcid+'/'+type+'/'+id, true);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 204) {
+				if (baORcc === 'bankAccounts') {
+					loadDeposits(bcid);
+					loadWithdrawals(bcid);
+				} else {
+					loadPayments(bcid);
+					loadPurchases(bcid);
+				}
+			} else {
+				displayError('An error occured: ' + xhr.status);
+			}
+		}
+	};
+	xhr.send();
+}
 

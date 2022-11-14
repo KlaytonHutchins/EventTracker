@@ -7,13 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.finance.entities.CreditCard;
+import com.skilldistillery.finance.entities.Payment;
+import com.skilldistillery.finance.entities.Purchase;
 import com.skilldistillery.finance.repositories.CreditCardRepository;
+import com.skilldistillery.finance.repositories.PaymentRepository;
+import com.skilldistillery.finance.repositories.PurchaseRepository;
 
 @Service
 public class CreditCardServiceImpl implements CreditCardService {
 	
 	@Autowired
 	private CreditCardRepository creditCardRepo;
+	@Autowired
+	private PurchaseRepository purRepo;
+	@Autowired
+	private PaymentRepository payRepo;
 
 	@Override
 	public List<CreditCard> listAllCreditCards() {
@@ -51,6 +59,14 @@ public class CreditCardServiceImpl implements CreditCardService {
 
 	@Override
 	public boolean deleteCreditCard(int creditCardId) {
+		List<Purchase> purchases = purRepo.findByCreditCardId(creditCardId);
+		for (Purchase purchase : purchases) {
+			purRepo.delete(purchase);
+		}
+		List<Payment> payments = payRepo.findByCreditCardId(creditCardId);
+		for (Payment payment : payments) {
+			payRepo.delete(payment);
+		}
 		creditCardRepo.deleteById(creditCardId);
 		if (creditCardRepo.findById(creditCardId) != null) {
 			return false;

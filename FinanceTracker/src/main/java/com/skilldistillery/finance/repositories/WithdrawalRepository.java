@@ -9,5 +9,6 @@ import com.skilldistillery.finance.entities.Withdrawal;
 public interface WithdrawalRepository extends JpaRepository<Withdrawal, Integer>{
 	
 	List<Withdrawal> findByBankAccountId(Integer bid);
+	void deleteByBankAccountId(Integer bid);
 	
 }

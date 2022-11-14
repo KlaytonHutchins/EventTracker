@@ -9,5 +9,6 @@ import com.skilldistillery.finance.entities.Deposit;
 public interface DepositRepository extends JpaRepository<Deposit, Integer>{
 	
 	List<Deposit> findByBankAccountId(Integer bid);
+	void deleteByBankAccountId(Integer bid);
 	
 }

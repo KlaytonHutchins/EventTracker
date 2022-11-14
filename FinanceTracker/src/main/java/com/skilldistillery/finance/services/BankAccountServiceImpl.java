@@ -7,14 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.finance.entities.BankAccount;
-import com.skilldistillery.finance.entities.CreditCard;
+import com.skilldistillery.finance.entities.Deposit;
+import com.skilldistillery.finance.entities.Withdrawal;
 import com.skilldistillery.finance.repositories.BankAccountRepository;
+import com.skilldistillery.finance.repositories.DepositRepository;
+import com.skilldistillery.finance.repositories.WithdrawalRepository;
 
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
 	
 	@Autowired
 	private BankAccountRepository bankAccountRepo;
+	@Autowired
+	private WithdrawalRepository withRepo;
+	@Autowired
+	private DepositRepository depRepo;
 
 	@Override
 	public List<BankAccount> listAllBankAccounts() {
@@ -49,6 +56,14 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 	@Override
 	public boolean deleteBankAccount(int bankAccountId) {
+		List<Withdrawal> withdrawals = withRepo.findByBankAccountId(bankAccountId);
+		for (Withdrawal withdrawal : withdrawals) {
+			withRepo.delete(withdrawal);
+		}
+		List<Deposit> deposits = depRepo.findByBankAccountId(bankAccountId);
+		for (Deposit deposit : deposits) {
+			depRepo.delete(deposit);
+		}
 		bankAccountRepo.deleteById(bankAccountId);
 		if (bankAccountRepo.findById(bankAccountId) != null) {
 			return false;

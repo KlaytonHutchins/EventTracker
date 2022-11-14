@@ -9,5 +9,6 @@ import com.skilldistillery.finance.entities.Purchase;
 public interface PurchaseRepository extends JpaRepository<Purchase, Integer>{
 	
 	List<Purchase> findByCreditCardId(Integer bid);
+	void deleteByCreditCardId(Integer bid);
 	
 }

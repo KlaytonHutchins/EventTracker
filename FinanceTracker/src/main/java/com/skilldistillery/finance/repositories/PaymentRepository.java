@@ -9,5 +9,6 @@ import com.skilldistillery.finance.entities.Payment;
 public interface PaymentRepository extends JpaRepository<Payment, Integer>{
 	
 	List<Payment> findByCreditCardId(Integer bid);
+	void deleteByCreditCardId(Integer bid);
 	
 }
