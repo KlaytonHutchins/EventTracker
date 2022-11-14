@@ -274,7 +274,7 @@ function displayDeposits(bankAcctId, deposits) {
 	document.getElementById('bankAcctDiv').style.display = 'none';
 	document.getElementById('creditCardDiv').style.display = 'none';
 	document.getElementsByName('paymentButton')[0].style.display = 'none';
-	document.getElementsByName('depositButton')[0].style.display = 'flex';
+	document.getElementsByName('depositButton')[0].style.display = '';
 	document.getElementById('detailDiv').style.display = 'flex';
 	document.getElementById('detailHeader').style.display = 'flex';
 	let depositPaymentHeader = document.getElementById('depositPaymentHeader');
@@ -345,7 +345,7 @@ function displayWithdrawals(bankAcctId, withdrawals) {
 	document.getElementById('bankAcctDiv').style.display = 'none';
 	document.getElementById('creditCardDiv').style.display = 'none';
 	document.getElementsByName('purchaseButton')[0].style.display = 'none';
-	document.getElementsByName('withdrawalButton')[0].style.display = 'flex';
+	document.getElementsByName('withdrawalButton')[0].style.display = '';
 	document.getElementById('detailDiv').style.display = 'flex';
 	document.getElementById('detailHeader').style.display = 'flex';
 	let withdrawalPurchaseHeader = document.getElementById('withdrawalPurchaseHeader');
@@ -416,7 +416,7 @@ function displayPayments(creditCardId, payments) {
 	document.getElementById('bankAcctDiv').style.display = 'none';
 	document.getElementById('creditCardDiv').style.display = 'none';
 	document.getElementsByName('depositButton')[0].style.display = 'none';
-	document.getElementsByName('paymentButton')[0].style.display = 'flex';
+	document.getElementsByName('paymentButton')[0].style.display = '';
 	document.getElementById('detailDiv').style.display = 'flex';
 	document.getElementById('detailHeader').style.display = 'flex';
 	let depositPaymentHeader = document.getElementById('depositPaymentHeader');
@@ -488,7 +488,7 @@ function displayPurchases(creditCardId, purchases) {
 	document.getElementById('bankAcctDiv').style.display = 'none';
 	document.getElementById('creditCardDiv').style.display = 'none';
 	document.getElementsByName('withdrawalButton')[0].style.display = 'none';
-	document.getElementsByName('purchaseButton')[0].style.display = 'flex';
+	document.getElementsByName('purchaseButton')[0].style.display = '';
 	document.getElementById('detailDiv').style.display = 'flex';
 	document.getElementById('detailHeader').style.display = 'flex';
 	let withdrawalPurchaseHeader = document.getElementById('withdrawalPurchaseHeader');
