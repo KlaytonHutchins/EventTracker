@@ -9,27 +9,11 @@ import { BankAccountService } from 'src/app/services/bank-account.service';
 })
 export class HomeComponent implements OnInit {
 
-  bankAccounts: BankAccount[] = [];
-
   constructor(
     private bankAccountService: BankAccountService
   ) { }
 
-  loadBankAccounts() {
-    this.bankAccountService.index().subscribe({
-      next: (accts) => {
-        this.bankAccounts = accts;
-        console.log(this.bankAccounts);
-      },
-      error: (fail) => {
-        console.error('Error');
-        console.log(fail);
-      }
-    })
-  }
-
   ngOnInit(): void {
-    this.loadBankAccounts();
   }
 
 }
