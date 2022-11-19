@@ -6,21 +6,19 @@
         <th>Bank</th>
         <th>Balance</th>
         <th width="1px"></th>
-        <th width="1px"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let acct of bankAccounts">
         <td>{{acct.institutionName}}</td>
         <td>{{acct.balance}}</td>
-        <td>edit</td>
-        <td>delete</td>
+        <td><button class="btn btn-danger" (click)="deleteBankAccount(acct.id)">X</button></td>
       </tr>
     </tbody>
   </table>
   <form name="newBankAcct">
-    <input type="text" name="bankAcct" placeholder="Bank Name"/>
-    <button name="addBankAcct" class="btn btn-secondary">Add Bank Account</button>
+    <input type="text" name="institutionName" placeholder="Bank Name" [(ngModel)]="newBA.institutionName" />
+    <button class="btn btn-secondary" (click)="addBankAccount(newBA)" >Add Bank Account</button>
     </form>
 </div>
 <div id="creditCardDiv">
@@ -31,7 +29,6 @@
         <th>Balance</th>
         <th>Credit Limit</th>
         <th width="1px"></th>
-        <th width="1px"></th>
       </tr>
     </thead>
     <tbody>
@@ -39,14 +36,13 @@
         <td>{{cCard.institutionName}}</td>
         <td>{{cCard.balance}}</td>
         <td>{{cCard.creditLimit}}</td>
-        <td>edit</td>
-        <td>delete</td>
+        <td><button class="btn btn-danger" (click)="deleteCreditCard(cCard.id)">X</button></td>
       </tr>
     </tbody>
   </table>
   <form name="newCreditCard">
-    <input type="text" name="creditCard" placeholder="Credit Card Company"/>
-    <input type="number" name="creditLimit" placeholder="Credit Limit"/>
-    <button name="addCreditCard" class="btn btn-secondary">Add Credit Card</button>
+    <input type="text" name="institutionName" placeholder="Credit Card Company" [(ngModel)]="newCC.institutionName" />
+    <input type="number" name="creditLimit" placeholder="Credit Limit" [(ngModel)]="newCC.creditLimit" />
+    <button class="btn btn-secondary" (click)="addCreditCard(newCC)" >Add Credit Card</button>
   </form>
 </div>
