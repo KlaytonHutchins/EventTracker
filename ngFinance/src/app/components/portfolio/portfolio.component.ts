@@ -32,13 +32,13 @@ export class PortfolioComponent implements OnInit {
     localStorage.setItem("id", ""+id);
   }
 
-  displayBA(bankAcct: BankAccount) {
-    this.setId(bankAcct.id);
+  displayBA(bid: number) {
+    this.setId(bid);
     this.router.navigate(['/bankAccount']);
   }
 
-  displayCC(creditCard: CreditCard) {
-    this.setId(creditCard.id);
+  displayCC(cid: number) {
+    this.setId(cid);
     this.router.navigate(['/creditCard']);
   }
 

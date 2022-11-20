@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let acct of bankAccounts" (click)="displayBA(acct)">
+        <tr *ngFor="let acct of bankAccounts" (click)="displayBA(acct.id)">
           <td>{{acct.institutionName}}</td>
           <td>{{acct.balance}}</td>
           <td><button class="btn btn-danger" (click)="deleteBankAccount(acct.id)">X</button></td>
@@ -33,7 +33,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cCard of creditCards" (click)="displayCC(cCard)">
+        <tr *ngFor="let cCard of creditCards" (click)="displayCC(cCard.id)">
           <td>{{cCard.institutionName}}</td>
           <td>{{cCard.balance}}</td>
           <td>{{cCard.creditLimit}}</td>

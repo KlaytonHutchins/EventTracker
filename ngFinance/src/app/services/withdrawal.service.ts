@@ -16,7 +16,6 @@ export class WithdrawalService {
   ) { }
 
   index(bid: number): Observable<Withdrawal[]> {
-    console.log(bid);
     return this.http.get<Withdrawal[]>(`${this.url}/${bid}/withdrawals`).pipe(
       catchError((err: any) => {
         return throwError(
@@ -60,4 +59,5 @@ export class WithdrawalService {
         })
       );
   }
+
 }

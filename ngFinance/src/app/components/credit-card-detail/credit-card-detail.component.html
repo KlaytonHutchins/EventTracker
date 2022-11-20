@@ -1,1 +1,58 @@
-<p>credit-card-detail works!</p>
+<div id="detailHeader" class="row">
+  <button class="col-1 btn btn-secondary" [routerLink]="['/portfolio']">Back</button>
+  <h2 class="col" *ngIf="creditCard">{{creditCard.institutionName}} ({{creditCard.balance}}) (Limit: {{creditCard.creditLimit}})</h2>
+</div>
+<div id="detailDiv" class="row justify-content-start">
+  <div class="col-6">
+    <h3>Purchases</h3>
+      <input type="text" name="amount" placeholder="Amount" [(ngModel)]="newPur.amount"/>
+      <input type="text" name="description" placeholder="Description" [(ngModel)]="newPur.description"/>
+      <button name="purchsaeButton" class="btn btn-secondary" (click)="addPurchase(newPur)" >Add</button>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Time</th>
+          <th>Description</th>
+          <th width="1px"></th>
+          <th width="1px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pur of purchases">
+          <td>{{pur.amount}}</td>
+          <td>{{pur.timestamp}}</td>
+          <td>{{pur.description}}</td>
+          <td></td>
+          <td><button class="btn btn-danger" (click)="deletePurchase(pur.id)">X</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-6">
+    <h3>Payments</h3>
+      <input type="text" name="amount" placeholder="Amount" [(ngModel)]="newPay.amount"/>
+      <input type="text" name="description" placeholder="Description" [(ngModel)]="newPay.description"/>
+      <button name="paymentButton" class="btn btn-secondary" (click)="addPayment(newPay)" >Add</button>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Time</th>
+          <th>Description</th>
+          <th width="1px"></th>
+          <th width="1px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pay of payments">
+          <td>{{pay.amount}}</td>
+          <td>{{pay.timestamp}}</td>
+          <td>{{pay.description}}</td>
+          <td></td>
+          <td><button class="btn btn-danger" (click)="deletePayment(pay.id)">X</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

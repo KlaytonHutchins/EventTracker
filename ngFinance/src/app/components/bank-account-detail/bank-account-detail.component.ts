@@ -6,7 +6,6 @@ import { Withdrawal } from 'src/app/models/withdrawal';
 import { BankAccountService } from 'src/app/services/bank-account.service';
 import { DepositService } from 'src/app/services/deposit.service';
 import { WithdrawalService } from 'src/app/services/withdrawal.service';
-import { PortfolioComponent } from '../portfolio/portfolio.component';
 
 @Component({
   selector: 'app-bank-account-detail',
@@ -45,6 +44,7 @@ export class BankAccountDetailComponent implements OnInit {
       error: (fail) => {
       }
     });
+    localStorage.removeItem("id");
   }
 
   reload() {
@@ -66,6 +66,13 @@ export class BankAccountDetailComponent implements OnInit {
       error: (fail) => {
         console.error('BankAccountDetailComponent.reload: error getting Deposits');
         console.error(fail);
+      }
+    });
+    this.bankAccountSvc.show(this.bankAccountId).subscribe({
+      next: (data) => {
+        this.bankAcct = data;
+      },
+      error: (fail) => {
       }
     });
   }
