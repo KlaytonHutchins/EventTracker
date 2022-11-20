@@ -1,0 +1,52 @@
+<div id="detailHeader" class="row">
+  <button class="btn btn-secondary" [routerLink]="['/portfolio']">Back</button>
+  <h2 class="col" *ngIf="bankAcct">{{bankAcct.institutionName}}</h2>
+</div>
+<div id="detailDiv" class="row justify-content-start">
+  <div class="col-6">
+    <h3>Withdrawals</h3>
+      <input type="text" name="amount" placeholder="Amount" [(ngModel)]="newWith.amount"/>
+      <input type="text" name="description" placeholder="Description" [(ngModel)]="newWith.description"/>
+      <button name="withdrawalButton" class="btn btn-secondary" (click)="addWithdrawal(newWith)" ></button>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Time</th>
+          <th>Description</th>
+          <th width="1px"></th>
+          <th width="1px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let with of withdrawals">
+          <td>{{with.amount}}</td>
+          <td>{{with.timestamp}}</td>
+          <td>{{with.description}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-6">
+    <h3>Deposits</h3>
+    <form name="depositPaymentForm">
+      <input type="text" name="depositPaymentAmount" placeholder="Amount"/>
+      <input type="text" name="depositPaymentDescription" placeholder="Description"/>
+      <button name="paymentButton" class="btn btn-secondary"></button>
+      <button name="depositButton" class="btn btn-secondary"></button>
+    </form>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Time</th>
+          <th>Description</th>
+          <th width="1px"></th>
+        </tr>
+      </thead>
+      <tbody id="depositPaymentBody"></tbody>
+    </table>
+  </div>
+</div>

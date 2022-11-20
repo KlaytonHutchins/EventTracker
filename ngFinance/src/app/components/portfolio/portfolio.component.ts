@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BankAccount } from 'src/app/models/bank-account';
 import { CreditCard } from 'src/app/models/credit-card';
 import { BankAccountService } from 'src/app/services/bank-account.service';
@@ -23,8 +24,23 @@ export class PortfolioComponent implements OnInit {
 
   constructor(
     private bankAccountService: BankAccountService,
-    private creditCardService: CreditCardService
+    private creditCardService: CreditCardService,
+    private router: Router
   ) { }
+
+  setId(id: number) {
+    localStorage.setItem("id", ""+id);
+  }
+
+  displayBA(bankAcct: BankAccount) {
+    this.setId(bankAcct.id);
+    this.router.navigate(['/bankAccount']);
+  }
+
+  displayCC(creditCard: CreditCard) {
+    this.setId(creditCard.id);
+    this.router.navigate(['/creditCard']);
+  }
 
   reload() {
     this.bankAccountService.index().subscribe({
@@ -45,30 +61,6 @@ export class PortfolioComponent implements OnInit {
         console.error(fail);
       }
     });
-  }
-
-  loadBankAccounts() {
-    this.bankAccountService.index().subscribe({
-      next: (accts) => {
-        this.bankAccounts = accts;
-      },
-      error: (fail) => {
-        console.error('Error');
-        console.log(fail);
-      }
-    })
-  }
-
-  loadCreditCards() {
-    this.creditCardService.index().subscribe({
-      next: (ccs) => {
-        this.creditCards = ccs;
-      },
-      error: (fail) => {
-        console.error('Error');
-        console.log(fail);
-      }
-    })
   }
 
   addBankAccount(bankAcct: BankAccount) {
@@ -158,8 +150,7 @@ export class PortfolioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadBankAccounts();
-    this.loadCreditCards();
+    this.reload();
   }
 
 }

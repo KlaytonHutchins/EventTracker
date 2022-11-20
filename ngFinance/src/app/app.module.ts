@@ -9,13 +9,17 @@ import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { BankAccountDetailComponent } from './components/bank-account-detail/bank-account-detail.component';
+import { CreditCardDetailComponent } from './components/credit-card-detail/credit-card-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PortfolioComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    BankAccountDetailComponent,
+    CreditCardDetailComponent
   ],
   imports: [
     BrowserModule,
