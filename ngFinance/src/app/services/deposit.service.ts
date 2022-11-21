@@ -38,7 +38,8 @@ export class DepositService {
 
   update(bid: number, deposit: Deposit): Observable<Deposit> {
     return this.http.put<Deposit>(`${this.url}/${bid}/deposits/${deposit.id}`, deposit).pipe(
-        catchError((err: any) => {
+      catchError((err: any) => {
+          console.log(deposit);
           console.error(err);
           return throwError(
             () => new Error('DepositService.update(): Error updating Deposit: ' + err)

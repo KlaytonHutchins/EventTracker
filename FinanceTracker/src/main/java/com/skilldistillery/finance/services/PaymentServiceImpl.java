@@ -41,6 +41,7 @@ public class PaymentServiceImpl implements PaymentService {
 		Payment dbPayment = showPayment(paymentId, payment.getCreditCard().getId());
 		if (payment.getDescription() != null) {
 			dbPayment.setDescription(payment.getDescription());
+			dbPayment.setAmount(payment.getAmount());
 		}
 		paymentRepo.saveAndFlush(dbPayment);
 		return dbPayment;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BankAccount } from 'src/app/models/bank-account';
 import { CreditCard } from 'src/app/models/credit-card';
@@ -89,8 +89,13 @@ export class PortfolioComponent implements OnInit {
     });
   }
 
-  setEditBankAcct(): void {
-    this.editBA = Object.assign({}, this.selectedBA);
+  cancelEditBACC(): void {
+    this.editBA = null;
+    this.editCC = null;
+  }
+
+  setEditBankAcct(bankAccount: BankAccount): void {
+    this.editBA = bankAccount;
   }
 
   updateBankAcct(newBA: BankAccount): void {
@@ -98,6 +103,7 @@ export class PortfolioComponent implements OnInit {
       next: (result) => {
         this.selectedBA = result;
         this.editBA = null;
+        this.editCC = null;
         this.reload();
       },
       error: (err) => {
@@ -107,8 +113,8 @@ export class PortfolioComponent implements OnInit {
     });
   }
 
-  setEditCreditCard(): void {
-    this.editCC = Object.assign({}, this.selectedCC);
+  setEditCreditCard(creditCard: CreditCard): void {
+    this.editCC = creditCard;
   }
 
   updateCreditCard(newCC: CreditCard): void {
@@ -116,6 +122,7 @@ export class PortfolioComponent implements OnInit {
       next: (result) => {
         this.selectedCC = result;
         this.editCC = null;
+        this.editBA = null;
         this.reload();
       },
       error: (err) => {

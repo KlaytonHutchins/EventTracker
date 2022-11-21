@@ -103,15 +103,21 @@ export class CreditCardDetailComponent implements OnInit {
     });
   }
 
-  setEditPayment(): void {
-    this.editPay = Object.assign({}, this.selectedPay);
+  cancelEditPP(): void {
+    this.editPay = null;
+    this.editPur = null;
+  }
+
+  setEditPayment(payment: Payment): void {
+    this.editPay = payment;
   }
 
   updatePayment(newPay: Payment): void {
-    this.paymentSvc.update(this.creditCardId, this.newPay).subscribe({
+    this.paymentSvc.update(this.creditCardId, newPay).subscribe({
       next: (result) => {
         this.selectedPay = result;
         this.editPay = null;
+        this.editPur = null;
         this.reload();
       },
       error: (err) => {
@@ -121,15 +127,16 @@ export class CreditCardDetailComponent implements OnInit {
     });
   }
 
-  setEditPurchase(): void {
-    this.editPur = Object.assign({}, this.selectedPur);
+  setEditPurchase(purchase: Purchase): void {
+    this.editPur = purchase;
   }
 
   updatePurchase(newPur: Purchase): void {
-    this.purchaseSvc.update(this.creditCardId, this.newPur).subscribe({
+    this.purchaseSvc.update(this.creditCardId, newPur).subscribe({
       next: (result) => {
         this.selectedPur = result;
         this.editPur = null;
+        this.editPay = null;
         this.reload();
       },
       error: (err) => {

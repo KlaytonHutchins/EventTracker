@@ -103,15 +103,21 @@ export class BankAccountDetailComponent implements OnInit {
     });
   }
 
-  setEditWithdrawal(): void {
-    this.editWith = Object.assign({}, this.selectedWith);
+  cancelEditWD(): void {
+    this.editWith = null;
+    this.editDep = null;
+  }
+
+  setEditWithdrawal(withdrawal: Withdrawal): void {
+    this.editWith = withdrawal;
   }
 
   updateWithdrawal(newWith: Withdrawal): void {
-    this.withdrawalSvc.update(this.bankAccountId, this.newWith).subscribe({
+    this.withdrawalSvc.update(this.bankAccountId, newWith).subscribe({
       next: (result) => {
         this.selectedWith = result;
         this.editWith = null;
+        this.editDep = null;
         this.reload();
       },
       error: (err) => {
@@ -121,15 +127,16 @@ export class BankAccountDetailComponent implements OnInit {
     });
   }
 
-  setEditDeposit(): void {
-    this.editDep = Object.assign({}, this.selectedDep);
+  setEditDeposit(deposit: Deposit): void {
+    this.editDep = deposit;
   }
 
   updateDeposit(newDep: Deposit): void {
-    this.depositSvc.update(this.bankAccountId, this.newDep).subscribe({
+    this.depositSvc.update(this.bankAccountId, newDep).subscribe({
       next: (result) => {
         this.selectedDep = result;
         this.editDep = null;
+        this.editWith = null;
         this.reload();
       },
       error: (err) => {

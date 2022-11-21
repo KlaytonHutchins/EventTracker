@@ -37,6 +37,7 @@ export class WithdrawalService {
   }
 
   update(bid: number, withdrawal: Withdrawal): Observable<Withdrawal> {
+    console.log('in service: '+withdrawal.description);
     return this.http.put<Withdrawal>(`${this.url}/${bid}/withdrawals/${withdrawal.id}`, withdrawal).pipe(
         catchError((err: any) => {
           console.error(err);
@@ -49,7 +50,7 @@ export class WithdrawalService {
 
 
   destroy(bid: number, withdrawalId: number): Observable<void> {
-    return this.http.delete<void>(`${this.url}/${bid}/deposits/${withdrawalId}`)
+    return this.http.delete<void>(`${this.url}/${bid}/withdrawals/${withdrawalId}`)
       .pipe(
         catchError((err: any) => {
           console.log(err);

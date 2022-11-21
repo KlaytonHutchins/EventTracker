@@ -45,6 +45,7 @@ public class DepositServiceImpl implements DepositService {
 		Deposit dbDeposit = showDeposit(depositId, deposit.getBankAccount().getId());
 		if (deposit.getDescription() != null) {
 			dbDeposit.setDescription(deposit.getDescription());
+			dbDeposit.setAmount(deposit.getAmount());
 		}
 		depositRepo.saveAndFlush(dbDeposit);
 		return dbDeposit;
