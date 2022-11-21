@@ -1,5 +1,5 @@
 <div id="detailHeader" class="row">
-  <button class="col-1 btn btn-secondary" [routerLink]="['/portfolio']">Back</button>
+  <button class="col-1 btn btn-dark" [routerLink]="['/portfolio']">Back</button>
   <h2 class="col" *ngIf="bankAcct">{{bankAcct.institutionName}} ({{bankAcct.balance}})</h2>
 </div>
 <div id="detailDiv" class="row justify-content-start">
@@ -7,8 +7,8 @@
     <h3>Withdrawals</h3>
       <input type="text" name="amount" placeholder="Amount" [(ngModel)]="newWith.amount"/>
       <input type="text" name="description" placeholder="Description" [(ngModel)]="newWith.description"/>
-      <button name="withdrawalButton" class="btn btn-secondary" (click)="addWithdrawal(newWith)" >Add</button>
-    <table class="table table-striped table-hover">
+      <button name="withdrawalButton" class="btn btn-dark" (click)="addWithdrawal(newWith)" >Add</button>
+    <table class="table table-striped table-info table-hover">
       <thead>
         <tr>
           <th>Amount</th>
@@ -37,8 +37,8 @@
     <h3>Deposits</h3>
       <input type="text" name="amount" placeholder="Amount" [(ngModel)]="newDep.amount"/>
       <input type="text" name="description" placeholder="Description" [(ngModel)]="newDep.description"/>
-      <button name="depositButton" class="btn btn-secondary" (click)="addDeposit(newDep)" >Add</button>
-    <table class="table table-striped table-hover">
+      <button name="depositButton" class="btn btn-dark" (click)="addDeposit(newDep)" >Add</button>
+    <table class="table table-striped table-info table-hover">
       <thead>
         <tr>
           <th>Amount</th>
@@ -73,9 +73,9 @@
       <input *ngIf="editDep" type="number" placeholder="Amount" name="amount" [(ngModel)]="editDep.amount" />
       <input *ngIf="editDep" type="text" placeholder="Description" name="description" [(ngModel)]="editDep.description" />
       <br>
-      <button *ngIf="editWith" class="btn btn-secondary" (click)="updateWithdrawal(editWith)" >Update</button>
-      <button *ngIf="editDep" class="btn btn-secondary" (click)="updateDeposit(editDep)" >Update</button>
-      <button class="btn btn-secondary" (click)="cancelEditWD()" >Cancel</button>
+      <button *ngIf="editWith" class="btn btn-dark" (click)="updateWithdrawal(editWith)" >Update</button>
+      <button *ngIf="editDep" class="btn btn-dark" (click)="updateDeposit(editDep)" >Update</button>
+      <button class="btn btn-danger" (click)="cancelEditWD()" >Cancel</button>
     </form>
   </div>
 </div>
