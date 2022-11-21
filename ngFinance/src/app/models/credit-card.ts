@@ -7,8 +7,8 @@ export class CreditCard {
   constructor(
     id: number = 0,
     institutionName: string = '',
-    creditLimit: number = 0,
-    balance: number = 0
+    balance: number = 0,
+    creditLimit: number = 0
     ) {
     this.id = id;
     this.institutionName = institutionName;
