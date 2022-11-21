@@ -4,10 +4,10 @@
 
 This application allows a user to track his/her finances with any number of credit cards and banks. A user can enter deposits, withdrawals, purchases, and payments as they make them and the application will display applicable data about his/her finances.
 
-The application dynamically displays all information the user sees. There is only one html page, all unneeded elements are hidden from the user and others are displayed based on which page they have navigated to.
+The application uses Angular to dynamically display information stored in the MySQL database about the user's finances.
 
 ## Technologies Used
-Java, Javascript, Eclipse/Spring Tool Suite, Spring, Git, JSON, MySQL, MySQL Workbench, MAMP
+Java, Angular, VS Code, Eclipse/Spring Tool Suite, Spring framework, Git, JSON, MySQL, MySQL Workbench, MAMP
 
 ## REST Endpoints
 
